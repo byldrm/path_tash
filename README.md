@@ -5,24 +5,21 @@ Docker Desktop uygulaması açın.
 
 Aşıdaki satırları sırayla komut satırında çalıştırın.
 
-    git clone https://github.com/byldrm/task.git
+    git clone https://github.com/byldrm/path_task.git
     
-    cd task
+    cd path_task
     
     docker compose up -d --build
     
     docker exec -it app-shared-php8 bash
     
-    cd test1
+    cd abc_company
     
     composer update
-    
-    php artisan migrate
-    
-    php artisan db:seed --class=UserSeeder
 
-http://localhost/ üzerinden projeyi görebilirsiniz
+    php bin/console doctrine:migrations:migrate
     
-    demo kullanıcı bilgileri
-    email : demo@mail.com
-    şifre : 12demo34# path_tash
+    php bin/console doctrine:fixtures:load
+
+
+    
