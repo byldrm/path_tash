@@ -25,3 +25,13 @@ Aşıdaki satırları sırayla komut satırında çalıştırın.
 Postman Collections
 https://www.getpostman.com/collections/7e7acee0867ca44789b1
     
+Api kullanıcıları
+
+username : user1
+password : 12user34
+
+username : user2
+password : 12user34
+
+username : user3
+password : 12user34
