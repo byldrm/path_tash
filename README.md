@@ -22,4 +22,6 @@ Aşıdaki satırları sırayla komut satırında çalıştırın.
     php bin/console doctrine:fixtures:load
 
 
+Postman Collections
+https://www.getpostman.com/collections/7e7acee0867ca44789b1
     

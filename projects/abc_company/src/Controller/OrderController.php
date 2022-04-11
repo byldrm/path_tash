@@ -40,7 +40,7 @@ class OrderController extends ApiController
         return $this->respondWithSuccess($this->orderService->createOrder($user->getId(),$request));
     }
 
-    #[Route('/orders/{id}', name: 'create_order', methods: ['GET'])]
+    #[Route('/orders/{id}', name: 'get_order', methods: ['GET'])]
     public function getOrders(UserInterface $user, $id): Response
     {
         return $this->respondWithSuccess($this->orderService->getOrder($user->getId(),$id));

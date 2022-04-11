@@ -44,7 +44,8 @@ class Order
         if($basketProducts){
             $totolPrice =0;
             foreach ($basketProducts as $bproduct){
-                $product = $this->productRepository->find($bproduct->getId());
+                $product = $this->productRepository->find($bproduct->getProductId());
+
                 if(!$this->productService->checkProductQuantity($product->getId(),$bproduct->getQuantity())){
                     return ['data'=>[],false,sprintf('No quantity Product Name : %s',$product->getName())];
                 }
@@ -65,7 +66,7 @@ class Order
             $entityManager->flush();
 
             foreach ($basketProducts as $bproduct){
-                $product = $this->productRepository->find($bproduct->getId());
+                $product = $this->productRepository->find($bproduct->getProductId());
                 $product->setQuantity($product->getQuantity() - $bproduct->getQuantity());
                 $entityManager->flush();
 
@@ -201,6 +202,10 @@ class Order
         $product = $this->productRepository->find($productId);
         if($orderProducts){
             $orderProducts[0]->setQuantity($orderProducts[0]->getQuantity() - 1);
+            if(($orderProducts[0])->getQuantity() == 0){
+                $entityManager->remove($orderProducts[0]);
+                $entityManager->flush();
+            }
 
         }else{
             return [[],false,'This product is not in the order'];

@@ -27,7 +27,7 @@ class ProductController extends ApiController
 
 
     }
-    #[Route('/products', name: 'create_product', methods: ['POST'])]
+ /*   #[Route('/products', name: 'create_product', methods: ['POST'])]
     public function createProduct(Request $request): Response
     {
         $request = $this->transformJsonBody($request);
@@ -36,7 +36,7 @@ class ProductController extends ApiController
             return $this->respondValidationError($data['errors']);
         }
         return $this->respondWithSuccess($data['product'],true);
-    }
+    }*/
 
     #[Route('/products/{id}', name: 'get_product', methods: ['GET'])]
     public function getProduct($id)

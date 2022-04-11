@@ -63,18 +63,24 @@ class Product
     public function getProduct($id):array
     {
         $product =  $this->productRepository->find($id);
-        return [
-            'id'=>$product->getId(),
-            'name'=>$product->getName(),
-            'quantity'=>$product->getQuantity(),
-            'price'=>$product->getPrice(),
+        if($product){
+            return [
+                'id'=>$product->getId(),
+                'name'=>$product->getName(),
+                'quantity'=>$product->getQuantity(),
+                'price'=>$product->getPrice(),
 
-        ];
+            ];
+        }
+        return [];
 
     }
     public function checkProductQuantity($productId,$quantity) :bool
     {
         $product = $this->productRepository->find(['id'=>$productId]);
+        if(!$product){
+            return  false;
+        }
         return $product->getQuantity() >= $quantity;
     }
 }

@@ -31,10 +31,12 @@ class Basket
     {
         $entityManager = $this->doctrine->getManager();
         $basketProducts =  $this->basketRepository->findBy(['userId'=>$userId,'productId'=>$data->get('productId')]);
-        if(!$this->productService->checkProductQuantity($basketProducts[0]->getId(),$basketProducts[0]->getQuantity())){
-            return ['data'=>[],false,'No quantity '];
+
+        if(!$this->productService->checkProductQuantity($data->get('productId'),$data->get('quantity'))){
+            return ['status' =>false,'errors' =>'No quantity '];
         }
         if($basketProducts){
+
             $quantity = $basketProducts[0]->getQuantity() + $data->get('quantity');
             $basketProducts[0]->setQuantity($quantity);
             $entityManager->flush();
