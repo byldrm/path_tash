@@ -1,0 +1,28 @@
+App\Entity\Product:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 255
+    quantity:
+      - Positive: ~
+    price:
+      - Positive: ~
+
+
+
+#App\Entity\Order:
+#  properties:
+#    address:
+#      - NotBlank: ~
+#        - Length:
+#          min: 10
+#          max: 500
+#
+#App\Entity\OrderProduct:
+#  properties:
+#    product:
+#      - Positive: ~
+#    quantity:
+#      - Positive: ~

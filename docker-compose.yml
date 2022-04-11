@@ -1,0 +1,56 @@
+version: '3.5'
+
+services:
+  php8:
+    build:
+      context: ./docker/php8
+    hostname: php8
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./projects/:/var/www/html/
+      - ./docker/php8/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./docker/php8/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    container_name: app-shared-php8
+    networks:
+      symfony:
+      app-shared:
+  nginx:
+    image: nginx
+    container_name: app-shared-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./projects/:/var/www/html/
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php8
+    networks:
+      symfony:
+      app-shared:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: app-shared-mysql
+    ports:
+      - "3306:3306"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./docker/mysql/init.sql:/data/application/init.sql
+    depends_on:
+      - php8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      symfony:
+      app-shared:
+networks:
+  symfony:
+  app-shared:
+    driver: bridge
+    name: app-shared
